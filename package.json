@@ -1,0 +1,30 @@
+{
+  "name": "todo-app",
+  "description": "Todo app from The Odin Project curriculum",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "css-loader": "^6.7.1",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CJskii/todo-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CJskii/todo-app/issues"
+  },
+  "homepage": "https://github.com/CJskii/todo-app#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}

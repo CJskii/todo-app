@@ -49,7 +49,6 @@ function Task(){
     const notes = document.createElement('span')
     notes.textContent = "Cardboard bin is full"
 
-
     element.appendChild(title)
     element.appendChild(description)
     element.appendChild(priority)

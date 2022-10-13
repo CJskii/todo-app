@@ -13,9 +13,10 @@ function component() {
     element.appendChild(header)
     element.appendChild(Buttons())
     element.appendChild(Todos())
-
+    
 
     return element;
   }
   
+
   document.body.appendChild(component());

@@ -26,6 +26,9 @@ function App() {
     },
     delete: function (index) {
         this.tasks.splice(index, 1)
+    },
+    render: function () {
+      //call controller.render()
     }
   }
 
@@ -42,63 +45,87 @@ function App() {
     },
     remove: function (parent, element) {
       parent.removeChild(element)
-    }
-  }
-
-  // Text factory
-
-  const text = {
-    add: function (element, text) {
+    },
+    classAdd: function (element, elClass) {
+      element.classList.add(elClass)
+    },
+    classRemove: function (element, elClass){
+      element.classList.remove(elClass)
+    },
+    addText: function (element, text) {
       element.textContent = text
     },
-    clear: function (element) {
+    clearText: function (element) {
       element.textContent = ""
     },
-    placeholder: function (element, text){
+    placeholder: function (element, text) {
       element.placeholder = text
+    },
+    search: function (elClass) {
+      const element = document.querySelector(elClass)
+      return element
+    },
+    clearValue: function (element) {
+      console.log(element)
+      element.value = ""
     }
   }
-
 
   todo.getTasks()
   todo.newTask('Rubbish', "Take bin out", "1")
   todo.newTask('Shopping', "Go to ASDA ", "2")
 
+
     // Event listeners
     const listeners = {
+      // initiate eventListeners
       init: function () {
-        this.add()
-        // initiate listeners
+        this.addButton()
       },
-      add: function (){
+      addButton: function (){
         let buttons = document.querySelectorAll('.btn')
         buttons.forEach((button) => {
           button.addEventListener('click', (e) => listeners.buttons(e))
         })
       },
-      buttons: function (e) {
-        const btnText = e.target.textContent
-        // new conditions for buttons
-        if (btnText == "New Todo"){
-          e.target.textContent = "Submit"
-          controller.inputs()
-          // pupulate inputs
-          //controller.inputs()
-        } else if (btnText == "Submit"){
-          e.target.textContent = "New Todo"
-          controller.inputs()
-          // controller.render()
-          // take values from inputs and pass to populate components
-        }
+      addInput: function () {
+        let input = document.querySelector('.input')
+        input.addEventListener('keyup', (e) => listeners.input(e))
+        console.log("listener added")
       },
-      data: function () {
-
+      buttons: function (e) {
+        const input = element.search('.input')
+        if (input == null){
+          controller.inputs()
+          listeners.addInput()
+        } else if (input != null){
+          let value = input.value
+          controller.data(value)
+          controller.inputs()
+        } else {
+          return;
+        }
+        
+      },
+      input: function (e) {
+        const value = e.target.value
+        const button = element.search('.btn')
+        if (value == '') {
+          element.addText(button, "New Todo")
+        } else if (value != null) {
+          element.addText(button, "Submit")
+        }
       }
     }
 
     // App controller
 
     const controller = {
+      init: function () {
+        // initiate application
+        this.buttons()
+        listeners.init()
+      },
       document: function () {
         const main = document.querySelector('.main')
         return main
@@ -107,41 +134,60 @@ function App() {
         const parent = controller.document()
         const container = element.create("div", "buttons")
         const newBtn = element.create("button", "btn")
-        text.add(newBtn, "New Todo")
+        element.addText(newBtn, "New Todo")
         element.append(container, newBtn)
         element.append(parent, container) 
         return container
       },
-      init: function () {
-        this.buttons()
-        listeners.init()
-        // init application
-      },
+      
       render: function () {
-  
+        // call logic to create component
       }, 
       inputs: function () {
-        const inpCheck = document.querySelector('.input')
+        let input = document.querySelector('.input')
         const parent = controller.document()
-        
-        if (inpCheck === null) {
+        if (input === null) {
           const input = element.create("input", "input")
-          text.placeholder(input, "Title")
+          element.classAdd(input, "title")
+          element.placeholder(input, "Title")
           element.append(parent, input)
-        } else if (inpCheck.placeholder == "Title") {
-          // pass value to data handler 
-          console.log(inpCheck.value)
-          inpCheck.placeholder = "Description"
-        } else if (inpCheck.placeholder == "Description"){
-          inpCheck.placeholder = "Priority"
-        } else if (inpCheck.placeholder == "Priority"){
-          inpCheck.placeholder = "Due Date"
-          inpCheck.type = "date"
-        } else if (inpCheck.placeholder == "Due Date"){
-          inpCheck.type = "text"
-          inpCheck.placeholder = "Notes"
+        } else if (input.placeholder == "Title") {
+          element.classRemove(input, "title")
+          element.classAdd(input, "description")
+          input.placeholder = "Description"
+        } else if (input.placeholder == "Description"){
+          element.classRemove(input, "description")
+          element.classAdd(input, "priority")
+          input.placeholder = "Priority"
+        } else if (input.placeholder == "Priority"){
+          element.classRemove(input, "priority")
+          element.classAdd(input, "date")
+          input.placeholder = "Due Date"
+          input.type = "date"
+        } else if (input.placeholder == "Due Date"){
+          element.classRemove(input, "date")
+          element.classAdd(input, "notes")
+          input.type = "text"
+          input.placeholder = "Notes"
+        } else if (input.placeholder == "Notes"){
+          // reset state
+          // call todo.createTask()
+          console.log("now it should reset")
         }
-        
+        input = element.search(".input")
+        element.clearValue(input)
+      },
+      data: function (value){
+        const data = value
+        const input = element.search(".input")
+        const name = input.placeholder
+        return controller.dataStorage({name, data})
+      },
+      dataStorage: function (obj){
+        // here logic for storing data
+        let myArray = []
+        myArray.push(obj)
+        console.log(myArray)
       }
     }
   

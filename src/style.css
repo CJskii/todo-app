@@ -128,6 +128,7 @@ button {
     background-color: transparent;
     justify-self: center;
     align-self: center;
+    color: white;
   }
 
   label{

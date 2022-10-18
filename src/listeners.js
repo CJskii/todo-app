@@ -1,5 +1,6 @@
 import { element } from "./elements";
 import { controller } from "./controller";
+import { components } from "./components";
 // Event
 export const listeners = {
   // initiate eventListeners
@@ -20,6 +21,7 @@ export const listeners = {
     if (input == null) {
       controller.inputs();
       listeners.addInput();
+      components.cardContainer();
     } else if (input != null) {
       let value = input.value;
       controller.data(value);

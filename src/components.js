@@ -1,36 +1,56 @@
 import { element } from "./elements";
 export const components = {
-  card: function () {
+  cardData: function (key) {
+    const title = key.title;
+    const description = key.description;
+    const priority = key.priority;
+    const date = key.date;
+    const notes = key.notes;
+    //create container for cards
+    //this.cardContainer();
+    const card = cardTemplate(title, description, priority, date, notes);
+    this.cardContainer(card);
+  },
+  cardContainer: function (component) {
+    const condition = document.querySelector(".todo-container");
     const main = document.querySelector(".main");
-    const container = element.create("div", "card");
-    const header = element.create("h5", "header");
-    const date = element.create("span", "date");
-    const priority = element.create("p", "priority");
-    const notes = element.create("p", "notes");
-    const buttons = element.create("div", "card-btns");
-    const btnCompleted = element.create("button", "card-btn");
-    const btnDeleted = element.create("button", "card-btn");
-    element.append(container, header);
-    element.append(container, date);
-    element.append(container, priority);
-    element.append(container, notes);
-    element.append(buttons, btnCompleted);
-    element.append(buttons, btnDeleted);
-    element.append(container, buttons);
-    element.addText(header, "Hello Card");
-    element.append(main, container);
-    return container;
+    if (condition == null) {
+      const container = element.create("div", "todo-container");
+      element.append(container, component);
+      element.append(main, container);
+      console.log("creating todo container");
+    } else {
+      element.append(condition, component);
+    }
   },
 };
 
-function elem() {
-  const main = document.querySelector(".main");
-  const container = document.createElement("div");
-  const header = document.createElement("h5");
-  const date = document.createElement("span");
-  const priority = document.createElement("p");
-  const notes = document.createElement("p");
-  const buttons = document.createElement("div");
-  const btnCompleted = document.createElement("button");
-  const btnDeleted = document.createElement("button");
+function cardTemplate(tit, desc, prio, duedate, note) {
+  //const main = document.querySelector(".main");
+  const container = element.create("div", "card");
+  const header = element.create("h5", "header");
+  const description = element.create("p", "description");
+  const date = element.create("span", "date");
+  const priority = element.create("p", "priority");
+  const notes = element.create("p", "notes");
+  const buttons = element.create("div", "card-btns");
+  const btnComplete = element.create("button", "card-btn");
+  const btnDelete = element.create("button", "card-btn");
+  element.append(container, header);
+  element.append(container, description);
+  element.append(container, date);
+  element.append(container, priority);
+  element.append(container, notes);
+  element.append(buttons, btnComplete);
+  element.append(buttons, btnDelete);
+  element.append(container, buttons);
+  element.addText(header, tit);
+  element.addText(description, desc);
+  element.addText(priority, `Priority: ${prio}`);
+  element.addText(date, `Due date: ${duedate}`);
+  element.addText(notes, note);
+  element.addText(btnComplete, "Complete");
+  element.addText(btnDelete, "Delete");
+  //element.append(main, container);
+  return container;
 }

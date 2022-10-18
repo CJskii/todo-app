@@ -9,8 +9,14 @@ export const controller = {
     // initiate application
     this.header();
     this.buttons();
-    todo.newTask("Rubbish", "Take bin out", "1");
-    todo.newTask("Shopping", "Go to ASDA ", "2");
+    todo.newTask(
+      "Rubbish",
+      "Take bin out",
+      "1",
+      "22 / 10",
+      "notes notes notes notes notes notes notes notes notes "
+    );
+    todo.newTask("Shopping", "Go to ASDA ", "2", "22 / 20");
     listeners.init();
   },
   document: function () {
@@ -39,7 +45,9 @@ export const controller = {
     // call logic to create component from todo.tasks
     const tasks = todo.tasks;
     tasks.forEach((key) => {
-      console.log(key);
+      //console.log(key);
+      // call components.card()
+      components.cardData(key);
     });
   },
   inputs: function () {
@@ -74,7 +82,7 @@ export const controller = {
       // remove input
       let main = element.search(".main");
       element.remove(main, input);
-      components.card();
+      //components.card();
       console.log("now it should reset");
     }
     input = element.search(".input");

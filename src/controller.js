@@ -14,7 +14,7 @@ export const controller = {
       "Take bin out",
       "1",
       "22 / 10",
-      "notes notes notes notes notes notes notes notes notes "
+      "notes notes notes notes notes notes notes notes notes"
     );
     todo.newTask("Shopping", "Go to ASDA ", "2", "22 / 20");
     listeners.init();
@@ -42,11 +42,8 @@ export const controller = {
   },
 
   render: function () {
-    // call logic to create component from todo.tasks
     const tasks = todo.tasks;
     tasks.forEach((key) => {
-      //console.log(key);
-      // call components.card()
       components.cardData(key);
     });
   },
@@ -108,7 +105,6 @@ export const controller = {
     const date = myObject[3].data;
     const notes = myObject[4].data;
     return todo.newTask(title, description, priority, date, notes);
-    console.log({ title, description, priority, date, notes });
   },
   resetData: function () {
     myArray = [];

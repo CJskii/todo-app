@@ -44,8 +44,11 @@ export const controller = {
   },
 
   render: function () {
+    const container = document.querySelector(".todo-container");
+    if (container) {
+      container.remove();
+    }
     const tasks = todo.tasks;
-
     tasks.forEach((key) => {
       components.cardData(key);
       console.log(tasks);

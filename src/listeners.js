@@ -18,18 +18,10 @@ export const listeners = {
   },
   buttons: function (e) {
     const input = element.search(".input");
-    const container = document.querySelector(".todo-container");
     if (input == null) {
       controller.inputs();
       listeners.addInput();
-      console.log("before removing todos");
-      if (container != null) {
-        container.remove();
-        console.log("remove todos");
-        //controller.cardContainer();
-      }
-
-      //components.cardContainer();
+      controller.render();
     } else if (input != null) {
       let value = input.value;
       controller.data(value);

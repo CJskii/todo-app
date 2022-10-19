@@ -17,9 +17,8 @@ export const components = {
     const main = document.querySelector(".main");
     if (condition == null) {
       const container = element.create("div", "todo-container");
-      //element.append(container, component);
+      element.append(container, component);
       element.append(main, container);
-      console.log("creating todo container");
     } else {
       element.append(condition, component);
     }

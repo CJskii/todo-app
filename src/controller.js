@@ -9,6 +9,7 @@ export const controller = {
     // initiate application
     this.header();
     this.buttons();
+    /*
     todo.newTask(
       "Rubbish",
       "Take bin out",
@@ -17,6 +18,7 @@ export const controller = {
       "notes notes notes notes notes notes notes notes notes"
     );
     todo.newTask("Shopping", "Go to ASDA ", "2", "22 / 20");
+    */
     listeners.init();
   },
   document: function () {
@@ -43,20 +45,20 @@ export const controller = {
 
   render: function () {
     const tasks = todo.tasks;
+
     tasks.forEach((key) => {
       components.cardData(key);
+      console.log(tasks);
     });
   },
   inputs: function () {
     let input = element.search(".input");
     const parent = controller.document();
     if (input === null) {
-      //remove cards
       const input = element.create("input", "input");
       element.classAdd(input, "title");
       element.placeholder(input, "Title");
       element.append(parent, input);
-      //render cards
     } else if (input.placeholder == "Title") {
       element.classRemove(input, "title");
       element.classAdd(input, "description");
@@ -79,7 +81,6 @@ export const controller = {
       // remove input
       let main = element.search(".main");
       element.remove(main, input);
-      //components.card();
       console.log("now it should reset");
     }
     input = element.search(".input");

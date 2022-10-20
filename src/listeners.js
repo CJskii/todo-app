@@ -43,9 +43,26 @@ export const listeners = {
   enterOnInput: function (e) {
     if (e.key == "Enter") {
       this.buttons();
-      console.log(e.key);
     } else {
       return;
     }
+  },
+  cardButton: function (btn) {
+    if (btn.textContent == "Complete") {
+      btn.addEventListener("click", (e) => this.complete(e));
+      console.log("Complete button listener added");
+    } else if (btn.textContent == "Delete") {
+      btn.addEventListener("click", (e) => this.delete(e));
+      console.log("Delete button listener added");
+    }
+  },
+  complete: function (e) {
+    //console.log(e.path[2]);
+  },
+  delete: function (e) {
+    const card = e.path[2];
+    const taskTitle = card.firstChild.textContent;
+    controller.deleteTask(taskTitle);
+    card.remove();
   },
 };

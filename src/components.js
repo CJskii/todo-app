@@ -1,5 +1,6 @@
 import { controller } from "./controller";
 import { element } from "./elements";
+import { listeners } from "./listeners";
 export const components = {
   cardData: function (key) {
     const title = key.title;
@@ -7,8 +8,6 @@ export const components = {
     const priority = key.priority;
     const date = key.date;
     const notes = key.notes;
-    //create container for cards
-    //this.cardContainer();
     const card = cardTemplate(title, description, priority, date, notes);
     this.cardContainer(card);
   },
@@ -51,6 +50,7 @@ function cardTemplate(tit, desc, prio, duedate, note) {
   element.addText(notes, note);
   element.addText(btnComplete, "Complete");
   element.addText(btnDelete, "Delete");
-  //element.append(main, container);
+  listeners.cardButton(btnComplete);
+  listeners.cardButton(btnDelete);
   return container;
 }

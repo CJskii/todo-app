@@ -10,6 +10,11 @@ export const controller = {
     this.header();
     this.buttons();
     listeners.init();
+    todo.newTask("Take bins out", "Bins are full", "1", "25/10", "Notes");
+    todo.newTask("Shopping", "Go to ASDA", "2", "25/10", "Notes");
+    todo.newTask("Shopping", "Go to ASDA", "3", "25/10", "Notes");
+    todo.newTask("Shopping", "Go to ASDA", "4", "25/10", "Notes");
+    todo.newTask("Shopping", "Go to ASDA", "5", "25/10", "Notes");
   },
   document: function () {
     const main = document.querySelector(".main");
@@ -41,7 +46,6 @@ export const controller = {
     const tasks = todo.tasks;
     tasks.forEach((key) => {
       components.cardData(key);
-      console.log(tasks);
     });
   },
   inputs: function () {
@@ -72,7 +76,6 @@ export const controller = {
       input.type = "text";
       input.placeholder = "Notes";
     } else if (input.placeholder == "Notes") {
-      // remove input
       let main = element.search(".main");
       element.remove(main, input);
       console.log("now it should reset");
@@ -103,5 +106,17 @@ export const controller = {
   },
   resetData: function () {
     myArray = [];
+  },
+  deleteTask: function (taskTitle) {
+    const task = taskTitle;
+    const tasks = todo.tasks;
+    for (let i = 0; i < tasks.length; i++) {
+      if (task == tasks[i].title) {
+        todo.delete(i);
+        break;
+      } else {
+        continue;
+      }
+    }
   },
 };

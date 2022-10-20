@@ -4,7 +4,6 @@ export const todo = {
   tasks: [],
   newTask: function (title, description, priority, date, notes) {
     this.tasks.push({ title, description, priority, date, notes });
-    console.log(this.tasks);
     controller.resetData();
     this.render();
   },

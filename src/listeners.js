@@ -57,7 +57,14 @@ export const listeners = {
     }
   },
   complete: function (e) {
-    //console.log(e.path[2]);
+    const card = e.path[2];
+    for (let i = 0; i < 5; i++) {
+      if (card.children[i].style.textDecoration == "") {
+        card.children[i].style.textDecoration = "line-through";
+      } else {
+        card.children[i].style.textDecoration = "";
+      }
+    }
   },
   delete: function (e) {
     const card = e.path[2];

@@ -85,6 +85,7 @@ h1 {
   justify-self: flex-start;
   align-self: center;
   padding-left: 0.5rem;
+  color: rgb(247, 233, 233);
 }
 
 .date {

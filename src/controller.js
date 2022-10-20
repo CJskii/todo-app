@@ -9,16 +9,6 @@ export const controller = {
     // initiate application
     this.header();
     this.buttons();
-    /*
-    todo.newTask(
-      "Rubbish",
-      "Take bin out",
-      "1",
-      "22 / 10",
-      "notes notes notes notes notes notes notes notes notes"
-    );
-    todo.newTask("Shopping", "Go to ASDA ", "2", "22 / 20");
-    */
     listeners.init();
   },
   document: function () {
@@ -59,25 +49,26 @@ export const controller = {
     const parent = controller.document();
     if (input === null) {
       const input = element.create("input", "input");
-      element.classAdd(input, "title");
+      element.classAdd(input, "titleInput");
       element.placeholder(input, "Title");
       element.append(parent, input);
     } else if (input.placeholder == "Title") {
-      element.classRemove(input, "title");
-      element.classAdd(input, "description");
+      element.classRemove(input, "titleInput");
+      element.classAdd(input, "desc");
       input.placeholder = "Description";
     } else if (input.placeholder == "Description") {
-      element.classRemove(input, "description");
-      element.classAdd(input, "priority");
-      input.placeholder = "Priority";
-    } else if (input.placeholder == "Priority") {
-      element.classRemove(input, "priority");
-      element.classAdd(input, "date");
+      element.classRemove(input, "desc");
+      element.classAdd(input, "priorityInput");
+      input.type = "number";
+      input.placeholder = "Priority / 1 - 5";
+    } else if (input.placeholder == "Priority / 1 - 5") {
+      element.classRemove(input, "priorityInput");
+      element.classAdd(input, "duedate");
       input.placeholder = "Due Date";
       input.type = "date";
     } else if (input.placeholder == "Due Date") {
-      element.classRemove(input, "date");
-      element.classAdd(input, "notes");
+      element.classRemove(input, "duedate");
+      element.classAdd(input, "notesInput");
       input.type = "text";
       input.placeholder = "Notes";
     } else if (input.placeholder == "Notes") {

@@ -57,16 +57,6 @@ h1 {
   justify-content: center;
 }
 
-input {
-  width: 90%;
-  height: 50%;
-  font-size: 0.6rem;
-  background-color: transparent;
-  justify-self: center;
-  align-self: center;
-  color: white;
-}
-
 .todo-container {
   width: 80%;
   height: 100%;
@@ -77,11 +67,16 @@ input {
 }
 
 .card {
-  background-color: rgb(105, 101, 101);
   border-radius: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 0.5fr 0.5fr 1fr 1fr 1fr;
+  background: rgba(104, 72, 134, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .header {
@@ -138,4 +133,46 @@ input {
   background-color: transparent;
   color: gold;
   font-size: 0.5rem;
+}
+
+input {
+  width: 80%;
+  height: 50px;
+  font-size: 0.8rem;
+  background-color: transparent;
+  justify-self: center;
+  align-self: center;
+  text-align: center;
+  color: rgba(104, 72, 134, 0.96);
+  border: 2px solid rgba(104, 72, 134, 0.5);
+}
+
+input[type="date"] {
+  color: rgb(128, 123, 123);
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(128, 123, 123);
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: red;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: red;
+}
+
+span,
+p {
+  color: rgb(209, 188, 188);
+}
+
+.input:focus {
+  border: 2px solid rgba(104, 72, 134, 0.96);
+  outline: rgba(104, 72, 134, 0.96);
 }

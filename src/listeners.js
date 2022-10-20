@@ -9,18 +9,19 @@ export const listeners = {
   },
   addButton: function () {
     let button = element.search(".btn");
-    button.addEventListener("click", (e) => listeners.buttons(e));
+    button.addEventListener("click", (e) => this.buttons(e));
   },
   addInput: function () {
     let input = document.querySelector(".input");
-    input.addEventListener("keyup", (e) => listeners.input(e));
+    input.addEventListener("keyup", (e) => this.input(e));
+    input.addEventListener("keydown", (e) => this.enterOnInput(e));
     console.log("listener added");
   },
   buttons: function (e) {
     const input = element.search(".input");
     if (input == null) {
       controller.inputs();
-      listeners.addInput();
+      this.addInput();
       controller.render();
     } else if (input != null) {
       let value = input.value;
@@ -37,6 +38,14 @@ export const listeners = {
       button.textContent = "New Todo";
     } else if (value != null) {
       button.textContent = "Submit";
+    }
+  },
+  enterOnInput: function (e) {
+    if (e.key == "Enter") {
+      this.buttons();
+      console.log(e.key);
+    } else {
+      return;
     }
   },
 };

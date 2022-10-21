@@ -35,7 +35,7 @@ export const controller = {
     const categoryBtn = element.create("button", "btn");
     element.classAdd(categoryBtn, "btn-category");
     element.addText(newBtn, "New Todo");
-    element.addText(categoryBtn, "New Category");
+    element.addText(categoryBtn, "New List");
     element.append(container, newBtn);
     element.append(container, categoryBtn);
     element.append(parent, container);
@@ -91,10 +91,8 @@ export const controller = {
   },
   categoryInputCheck: function () {
     const input = element.search(".categoryInput");
-    console.log(input);
     if (input != null) {
       input.remove();
-      console.log(input);
     }
   },
   data: function (value) {

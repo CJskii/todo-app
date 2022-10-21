@@ -1,6 +1,7 @@
 import { element } from "./elements";
 import { controller } from "./controller";
 import { components } from "./components";
+import { todo } from "./todo";
 // Event
 export const listeners = {
   // initiate eventListeners
@@ -21,7 +22,6 @@ export const listeners = {
   },
   todoBtn: function (e) {
     const input = element.search(".input");
-    const inputCategory = element.search(".categoryInput");
     if (input == null) {
       controller.inputs();
       this.addInput();
@@ -53,10 +53,8 @@ export const listeners = {
   cardButton: function (btn) {
     if (btn.textContent == "Complete") {
       btn.addEventListener("click", (e) => this.complete(e));
-      console.log("Complete button listener added");
     } else if (btn.textContent == "Delete") {
       btn.addEventListener("click", (e) => this.delete(e));
-      console.log("Delete button listener added");
     }
   },
   complete: function (e) {
@@ -78,24 +76,48 @@ export const listeners = {
   categoryBtn: function (e) {
     const input = element.search(".input");
     const categoryInput = element.search(".categoryInput");
-    console.log(input);
-    if (input == null) {
-      if (categoryInput != null) {
-        categoryInput.remove();
-      }
+    if (categoryInput != null) {
+      const value = categoryInput.value;
+      const categoryBtn = element.search(".btn-category");
+      categoryBtn.textContent = "New List";
+      todo.category.push(value);
+      console.log(todo.category);
+      categoryInput.remove();
+    } else if (input == null) {
       this.categoryInput();
     } else if (input != null) {
       console.log("not null");
       input.remove();
       this.categoryInput();
-    } else if (categoryInput != null) {
-      return;
     }
   },
   categoryInput: function () {
     const input = element.create("input", "categoryInput");
     const main = element.search(".main");
-    input.placeholder = "Category";
+    input.placeholder = "List name";
+    input.type = "text";
     element.append(main, input);
+    this.categoryListener(input);
+  },
+  categoryListener: function (input) {
+    input.addEventListener("keyup", (e) => this.category(e));
+    input.addEventListener("keyup", (e) => this.categoryEnter(e));
+  },
+  category: function (e) {
+    let button = element.search(".btn-category");
+    let value = e.target.value;
+    console.log(value);
+    if (value == "") {
+      button.textContent = "New List";
+    } else if (value != "") {
+      button.textContent = "Submit List";
+    }
+  },
+  categoryEnter: function (e) {
+    if (e.key == "Enter") {
+      this.categoryBtn();
+    } else {
+      return;
+    }
   },
 };

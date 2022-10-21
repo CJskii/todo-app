@@ -32,8 +32,12 @@ export const controller = {
     const parent = controller.document();
     const container = element.create("div", "buttons");
     const newBtn = element.create("button", "btn");
+    const categoryBtn = element.create("button", "btn");
+    element.classAdd(categoryBtn, "btn-category");
     element.addText(newBtn, "New Todo");
+    element.addText(categoryBtn, "New Category");
     element.append(container, newBtn);
+    element.append(container, categoryBtn);
     element.append(parent, container);
     return container;
   },
@@ -45,17 +49,19 @@ export const controller = {
     }
     const tasks = todo.tasks;
     tasks.forEach((key) => {
-      components.cardData(key);
+      //components.cardData(key);
     });
   },
   inputs: function () {
     let input = element.search(".input");
     const parent = controller.document();
+    this.categoryInputCheck();
     if (input === null) {
       const input = element.create("input", "input");
       element.classAdd(input, "titleInput");
       element.placeholder(input, "Title");
       element.append(parent, input);
+      this.category(); // render category box 1
     } else if (input.placeholder == "Title") {
       element.classRemove(input, "titleInput");
       element.classAdd(input, "desc");
@@ -82,6 +88,14 @@ export const controller = {
     }
     input = element.search(".input");
     element.clearValue(input);
+  },
+  categoryInputCheck: function () {
+    const input = element.search(".categoryInput");
+    console.log(input);
+    if (input != null) {
+      input.remove();
+      console.log(input);
+    }
   },
   data: function (value) {
     const data = value;
@@ -118,5 +132,9 @@ export const controller = {
         continue;
       }
     }
+  },
+  category: function () {
+    const myArray = todo.category;
+    myArray.forEach;
   },
 };

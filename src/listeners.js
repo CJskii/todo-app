@@ -8,8 +8,10 @@ export const listeners = {
     this.addButton();
   },
   addButton: function () {
-    let button = element.search(".btn");
-    button.addEventListener("click", (e) => this.buttons(e));
+    const button = element.search(".btn");
+    const buttonCategory = element.search(".btn-category");
+    button.addEventListener("click", (e) => this.todoBtn(e));
+    buttonCategory.addEventListener("click", (e) => this.categoryBtn(e));
   },
   addInput: function () {
     let input = document.querySelector(".input");
@@ -17,8 +19,9 @@ export const listeners = {
     input.addEventListener("keydown", (e) => this.enterOnInput(e));
     console.log("listener added");
   },
-  buttons: function (e) {
+  todoBtn: function (e) {
     const input = element.search(".input");
+    const inputCategory = element.search(".categoryInput");
     if (input == null) {
       controller.inputs();
       this.addInput();
@@ -71,5 +74,28 @@ export const listeners = {
     const taskTitle = card.firstChild.textContent;
     controller.deleteTask(taskTitle);
     card.remove();
+  },
+  categoryBtn: function (e) {
+    const input = element.search(".input");
+    const categoryInput = element.search(".categoryInput");
+    console.log(input);
+    if (input == null) {
+      if (categoryInput != null) {
+        categoryInput.remove();
+      }
+      this.categoryInput();
+    } else if (input != null) {
+      console.log("not null");
+      input.remove();
+      this.categoryInput();
+    } else if (categoryInput != null) {
+      return;
+    }
+  },
+  categoryInput: function () {
+    const input = element.create("input", "categoryInput");
+    const main = element.search(".main");
+    input.placeholder = "Category";
+    element.append(main, input);
   },
 };

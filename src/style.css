@@ -55,6 +55,7 @@ h1 {
   width: 20%;
   display: flex;
   justify-content: center;
+  gap: 15px;
 }
 
 .todo-container {
@@ -62,7 +63,7 @@ h1 {
   height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
+  grid-template-rows: 0.2fr 1fr;
   gap: 25px;
 }
 
@@ -176,4 +177,10 @@ p {
 .input:focus {
   border: 2px solid rgba(104, 72, 134, 0.96);
   outline: rgba(104, 72, 134, 0.96);
+}
+
+.category {
+  color: white;
+  grid-area: 1 / 1 / 2 /4;
+  justify-self: center;
 }

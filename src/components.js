@@ -16,16 +16,26 @@ export const components = {
     const main = document.querySelector(".main");
     if (condition == null) {
       const container = element.create("div", "todo-container");
+      const category = element.create("h6", "category");
+      element.addText(category, "General");
+      element.append(container, category);
       element.append(container, component);
       element.append(main, container);
     } else {
       element.append(condition, component);
     }
   },
+  category: function () {
+    const main = document.querySelector(".main");
+    console.log(main);
+    const category = categoryTemplate("General");
+    console.log(category);
+    element.append(main, category);
+    console.log(category);
+  },
 };
 
 function cardTemplate(tit, desc, prio, duedate, note) {
-  //const main = document.querySelector(".main");
   const container = element.create("div", "card");
   const header = element.create("h5", "header");
   const description = element.create("p", "description");
@@ -52,5 +62,13 @@ function cardTemplate(tit, desc, prio, duedate, note) {
   element.addText(btnDelete, "Delete");
   listeners.cardButton(btnComplete);
   listeners.cardButton(btnDelete);
+  return container;
+}
+
+function categoryTemplate(category) {
+  const container = element.create("div", "categoryContainer");
+  const header = element.create("h6", "category");
+  element.addText(header, category);
+  element.append(container, header);
   return container;
 }

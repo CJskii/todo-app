@@ -104,6 +104,9 @@ export const controller = {
   dataStorage: function (obj) {
     myArray.push(obj);
     if (myArray.length == "5") {
+      const list = element.search(".drop-select");
+      const listValue = list.value;
+      myArray.push({ list: listValue });
       this.dataHandler(myArray);
     }
   },
@@ -114,7 +117,8 @@ export const controller = {
     const priority = myObject[2].data;
     const date = myObject[3].data;
     const notes = myObject[4].data;
-    return todo.newTask(title, description, priority, date, notes);
+    const list = myObject[5].list;
+    return todo.newTask(title, description, priority, date, notes, list);
   },
   resetData: function () {
     myArray = [];

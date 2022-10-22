@@ -3,8 +3,9 @@ import { controller } from "./controller";
 export const todo = {
   tasks: [],
   category: ["General", "Work", "Shopping"],
-  newTask: function (title, description, priority, date, notes) {
-    this.tasks.push({ title, description, priority, date, notes });
+  newTask: function (title, description, priority, date, notes, list) {
+    this.tasks.push({ title, description, priority, date, notes, list });
+    console.log(this.tasks);
     controller.resetData();
     this.render();
   },

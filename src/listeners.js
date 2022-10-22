@@ -46,7 +46,7 @@ export const listeners = {
   },
   enterOnInput: function (e) {
     if (e.key == "Enter") {
-      this.buttons();
+      this.todoBtn();
     } else {
       return;
     }

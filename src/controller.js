@@ -1,3 +1,4 @@
+import { drop } from "lodash";
 import { components } from "./components";
 import { element } from "./elements";
 import { listeners } from "./listeners";
@@ -49,7 +50,7 @@ export const controller = {
     }
     const tasks = todo.tasks;
     tasks.forEach((key) => {
-      //components.cardData(key);
+      components.cardData(key);
     });
   },
   inputs: function () {
@@ -61,7 +62,6 @@ export const controller = {
       element.classAdd(input, "titleInput");
       element.placeholder(input, "Title");
       element.append(parent, input);
-      this.category(); // render category box 1
     } else if (input.placeholder == "Title") {
       element.classRemove(input, "titleInput");
       element.classAdd(input, "desc");
@@ -84,7 +84,7 @@ export const controller = {
     } else if (input.placeholder == "Notes") {
       let main = element.search(".main");
       element.remove(main, input);
-      console.log("now it should reset");
+      this.removeDropdown();
     }
     input = element.search(".input");
     element.clearValue(input);
@@ -131,8 +131,27 @@ export const controller = {
       }
     }
   },
-  category: function () {
+  renderDropdown: function () {
+    components.myDropdown();
+  },
+  removeDropdown: function () {
+    const label = element.search(".drop-label");
+    const list = element.search(".drop-select");
+    label.remove();
+    list.remove();
+  },
+  dropdownContent: function () {
     const myArray = todo.category;
-    myArray.forEach;
+    const content = element.search(".drop-select");
+    myArray.forEach((key) => {
+      const option = element.create("option", "option");
+      element.addText(option, `${key}`);
+      option.setAttribute("value", `${key}`);
+      element.append(content, option);
+    });
+  },
+  gridArea: function (area) {
+    const todoContainer = element.search(".todo-container");
+    todoContainer.style.gridArea = area;
   },
 };

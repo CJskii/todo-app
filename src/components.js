@@ -13,27 +13,48 @@ export const components = {
   },
   cardContainer: function (component) {
     const condition = document.querySelector(".todo-container");
+    const cards = document.querySelector(".cards");
     const main = document.querySelector(".main");
     if (condition == null) {
       const container = element.create("div", "todo-container");
       const category = element.create("h6", "category");
+      const cards = element.create("div", "cards");
       element.addText(category, "General");
       element.append(container, category);
-      element.append(container, component);
+      element.append(container, cards);
+      element.append(cards, component);
       element.append(main, container);
     } else {
-      element.append(condition, component);
+      element.append(cards, component);
     }
   },
   category: function () {
     const main = document.querySelector(".main");
-    console.log(main);
     const category = categoryTemplate("General");
-    console.log(category);
     element.append(main, category);
-    console.log(category);
+  },
+  myDropdown: function () {
+    const main = element.search(".main");
+    const label = labelTemplate();
+    const select = selectTemplate();
+    element.append(main, label);
+    element.append(main, select);
+    controller.dropdownContent();
   },
 };
+
+function labelTemplate() {
+  const label = element.create("label", "drop-label");
+  element.addText(label, "List: ");
+  label.setAttribute("for", "list");
+  return label;
+}
+
+function selectTemplate() {
+  const select = element.create("select", "drop-select");
+  select.setAttribute("id", "list");
+  return select;
+}
 
 function cardTemplate(tit, desc, prio, duedate, note) {
   const container = element.create("div", "card");

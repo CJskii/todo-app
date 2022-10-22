@@ -18,14 +18,15 @@ export const listeners = {
     let input = document.querySelector(".input");
     input.addEventListener("keyup", (e) => this.input(e));
     input.addEventListener("keydown", (e) => this.enterOnInput(e));
-    console.log("listener added");
   },
   todoBtn: function (e) {
     const input = element.search(".input");
     if (input == null) {
       controller.inputs();
       this.addInput();
+      controller.renderDropdown();
       controller.render();
+      controller.gridArea("5 / 1 / 6 / 6");
     } else if (input != null) {
       let value = input.value;
       controller.data(value);
@@ -76,16 +77,23 @@ export const listeners = {
   categoryBtn: function (e) {
     const input = element.search(".input");
     const categoryInput = element.search(".categoryInput");
+    controller.resetData();
     if (categoryInput != null) {
       const value = categoryInput.value;
       const categoryBtn = element.search(".btn-category");
       categoryBtn.textContent = "New List";
-      todo.category.push(value);
-      console.log(todo.category);
       categoryInput.remove();
+      controller.gridArea("3 / 1 / 6 / 6");
+      console.log(todo.category);
+      if (categoryInput.value == "") {
+        return;
+      } else {
+        todo.category.push(value);
+      }
     } else if (input == null) {
       this.categoryInput();
     } else if (input != null) {
+      controller.removeDropdown();
       console.log("not null");
       input.remove();
       this.categoryInput();
@@ -96,6 +104,7 @@ export const listeners = {
     const main = element.search(".main");
     input.placeholder = "List name";
     input.type = "text";
+    controller.gridArea("4 / 1 / 6 / 6");
     element.append(main, input);
     this.categoryListener(input);
   },
@@ -106,7 +115,6 @@ export const listeners = {
   category: function (e) {
     let button = element.search(".btn-category");
     let value = e.target.value;
-    console.log(value);
     if (value == "") {
       button.textContent = "New List";
     } else if (value != "") {

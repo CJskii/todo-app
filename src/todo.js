@@ -14,6 +14,9 @@ export const todo = {
   delete: function (index) {
     this.tasks.splice(index, 1);
   },
+  deleteCategory: function (index) {
+    this.category.splice(index, 1);
+  },
   render: function () {
     controller.render();
   },

@@ -8,10 +8,10 @@ let myArray = [];
 export const controller = {
   init: function () {
     // initiate application
-    this.header();
-    this.buttons();
+    components.header();
+    components.buttons();
+    components.emptyTodos();
     listeners.init();
-
     todo.newTask(
       "Take bins out",
       "Bins are full",
@@ -20,35 +20,16 @@ export const controller = {
       "Notes",
       "Work"
     );
+    /*
     todo.newTask("Shopping", "Go to ASDA", "2", "25/10", "Notes", "Shopping");
     todo.newTask("Shopping", "Go to ASDA", "3", "25/10", "Notes", "Shopping");
+    */
     todo.newTask("Shopping", "Go to ASDA", "4", "25/10", "Notes", "Shopping");
     todo.newTask("Shopping", "Go to ASDA", "5", "25/10", "Notes", "General");
   },
   document: function () {
     const main = document.querySelector(".main");
     return main;
-  },
-  header: function () {
-    const element = document.createElement("div");
-    element.classList.add("main");
-    const header = document.createElement("h1");
-    header.textContent = "Todo App";
-    element.appendChild(header);
-    document.body.appendChild(element);
-  },
-  buttons: function () {
-    const parent = controller.document();
-    const container = element.create("div", "buttons");
-    const newBtn = element.create("button", "btn");
-    const categoryBtn = element.create("button", "btn");
-    element.classAdd(categoryBtn, "btn-category");
-    element.addText(newBtn, "New Todo");
-    element.addText(categoryBtn, "New List");
-    element.append(container, newBtn);
-    element.append(container, categoryBtn);
-    element.append(parent, container);
-    return container;
   },
 
   render: function () {
@@ -177,27 +158,21 @@ const list = {
   init: function () {
     const lists = todo.category;
     const tasks = todo.tasks;
+    console.log(tasks);
     this.check(lists, tasks);
   },
   check: function (lists, tasks) {
-    //console.log(lists);
-    //console.log(tasks);
     lists.forEach((key) => {
       this.listData(key, tasks);
     });
-    /*
-    lists.forEach((key) => {
-      const task = tasks.filter(function (task) {
-        return task.list === key;
-      });
-    });
-    */
   },
   listData: function (list, tasks) {
     const listTasks = tasks.filter(function (tasks) {
       return tasks.list === list;
     });
-    console.log(listTasks);
+    this.render(list, listTasks);
   },
-  render: function () {},
+  render: function (list, listTasks) {
+    components.list(list, listTasks);
+  },
 };

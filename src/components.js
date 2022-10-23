@@ -41,6 +41,50 @@ export const components = {
     element.append(main, select);
     controller.dropdownContent();
   },
+  header: function () {
+    const element = document.createElement("div");
+    element.classList.add("main");
+    const header = document.createElement("h1");
+    header.textContent = "Todo App";
+    element.appendChild(header);
+    document.body.appendChild(element);
+  },
+  buttons: function () {
+    const parent = controller.document();
+    const container = element.create("div", "buttons");
+    const newBtn = element.create("button", "btn");
+    const categoryBtn = element.create("button", "btn");
+    element.classAdd(categoryBtn, "btn-category");
+    element.addText(newBtn, "New Todo");
+    element.addText(categoryBtn, "New List");
+    element.append(container, newBtn);
+    element.append(container, categoryBtn);
+    element.append(parent, container);
+    return container;
+  },
+  emptyTodos: function () {
+    const main = document.querySelector(".main");
+    const container = element.create("div", "todo-container");
+    element.append(main, container);
+  },
+  list: function (list, listTasks) {
+    const container = element.search(`.${list}`);
+    if (container == null) {
+      const todoContainer = element.search(".todo-container");
+      const listContainer = element.create("div", list);
+      const header = element.create("h6", "header");
+      element.addText(header, list);
+      element.append(listContainer, header);
+      element.append(todoContainer, listContainer);
+      this.appendTask(listTasks);
+    } else if (container != null) {
+      console.log("now append tasks");
+    }
+    // if no container create container and append tasks
+    // if container with list exist append tasks
+    //
+  },
+  appendTask: function (list, listTasks) {},
 };
 
 function labelTemplate() {

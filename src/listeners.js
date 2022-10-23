@@ -6,9 +6,9 @@ import { todo } from "./todo";
 export const listeners = {
   // initiate eventListeners
   init: function () {
-    this.addButton();
+    this.buttonListeners();
   },
-  addButton: function () {
+  buttonListeners: function () {
     const button = element.search(".btn");
     const buttonCategory = element.search(".btn-category");
     button.addEventListener("click", (e) => this.todoBtn(e));

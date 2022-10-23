@@ -74,6 +74,68 @@ h1 {
   justify-self: center;
 }
 
+.lists {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: 5px;
+}
+
+.list-card {
+  background-color: rgb(253, 183, 98);
+  display: flex;
+}
+
+.list-data {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}
+
+.list-priority,
+.list-date {
+  font-size: 0.5rem;
+  color: lightslategrey;
+  font-style: italic;
+}
+
+.list-title {
+  font-size: 0.7rem;
+  color: black;
+}
+
+.list-complete,
+.list-delete {
+  width: 25px;
+  height: 25px;
+}
+
+.icons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 30%;
+}
+
+.priorityBtns {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.priority-btn {
+  width: 25px;
+  height: 25px;
+}
+
+.category {
+  background-color: #3b00dd;
+  width: 100%;
+}
+
+.category > .header {
+  text-align: center;
+}
+
 .cards {
   width: 100%;
   display: flex;
@@ -82,6 +144,10 @@ h1 {
   align-items: flex-start;
   gap: 5px;
   height: 100%;
+}
+
+.cardsHeader {
+  color: white;
 }
 
 .card {
@@ -98,6 +164,7 @@ h1 {
   width: 24%;
   justify-self: flex-start;
   align-self: flex-start;
+  width: 400px;
 }
 
 .header {

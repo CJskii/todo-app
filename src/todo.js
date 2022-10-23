@@ -2,7 +2,7 @@ import { controller } from "./controller";
 // Todo methods
 export const todo = {
   tasks: [],
-  category: ["General", "Work", "Shopping"],
+  category: ["General"],
   newTask: function (title, description, priority, date, notes, list) {
     this.tasks.push({ title, description, priority, date, notes, list });
     controller.resetData();

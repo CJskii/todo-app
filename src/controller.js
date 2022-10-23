@@ -12,6 +12,7 @@ export const controller = {
     components.buttons();
     components.emptyTodos();
     listeners.init();
+    /*
     todo.newTask(
       "Take bins out",
       "Bins are full",
@@ -24,28 +25,12 @@ export const controller = {
     todo.newTask("Shopping", "Go to ASDA", "2", "25/10", "Notes", "Shopping");
     todo.newTask("Shopping", "Go to ASDA", "3", "25/10", "Notes", "Shopping");
     */
-    todo.newTask("Shopping", "Go to ASDA", "4", "25/10", "Notes", "Shopping");
-    todo.newTask("Shopping", "Go to ASDA", "5", "25/10", "Notes", "General");
+    //todo.newTask("Shopping", "Go to ASDA", "4", "25/10", "Notes", "Shopping");
+    //todo.newTask("Shopping", "Go to ASDA", "5", "25/10", "Notes", "General");
   },
   document: function () {
     const main = document.querySelector(".main");
     return main;
-  },
-
-  render: function () {
-    const container = document.querySelector(".todo-container");
-    let lists = todo.getList();
-    if (lists <= 1) {
-      if (container) {
-        container.remove();
-      }
-      const tasks = todo.tasks;
-      tasks.forEach((key) => {
-        components.cardData(key);
-      });
-    } else if (lists > 1) {
-      list.init();
-    }
   },
   inputs: function () {
     let input = element.search(".input");
@@ -78,6 +63,7 @@ export const controller = {
     } else if (input.placeholder == "Notes") {
       let main = element.search(".main");
       element.remove(main, input);
+      controller.gridArea("3 / 1 / 6 / 6");
       this.removeDropdown();
     }
     input = element.search(".input");
@@ -151,6 +137,100 @@ export const controller = {
   gridArea: function (area) {
     const todoContainer = element.search(".todo-container");
     todoContainer.style.gridArea = area;
+  },
+  render: function () {
+    const container = document.querySelector(".todo-container");
+    let lists = todo.getList();
+    if (lists <= 1) {
+      if (container) {
+        container.remove();
+      }
+      const tasks = todo.tasks;
+      tasks.forEach((key) => {
+        components.cardData(key);
+      });
+    } else if (lists > 1) {
+      lista.init();
+    }
+  },
+};
+
+const lista = {
+  init: function () {
+    const lists = todo.category;
+    const tasks = todo.tasks;
+    const todos = element.search(".cards");
+    const header = element.search(".cardsHeader");
+    if (todos != null) {
+      todos.remove();
+      header.remove();
+    }
+    //console.log(lists.length);
+    this.container();
+    lists.forEach((list) => {
+      const task = tasks.filter(function (task) {
+        return task.list == list;
+      });
+      console.log(task);
+      if (task.length > 0) {
+        components.list(list);
+        //this.styles(task.length);
+        this.taskData(list);
+      }
+    });
+  },
+  container: function () {
+    const container = element.search(".todo-container");
+    const lists = element.search(".lists");
+    if (lists != null) {
+      lists.remove();
+      const listsContainer = element.create("div", "lists");
+      element.append(container, listsContainer);
+    } else {
+      const listsContainer = element.create("div", "lists");
+      element.append(container, listsContainer);
+    }
+  },
+  taskData: function (list) {
+    const tasks = todo.tasks;
+    tasks.forEach((task) => {
+      if (task.list == list) {
+        const title = task.title;
+        const date = task.date;
+        const priority = task.priority;
+        this.appendTask({ title, date, priority }, list);
+      } else {
+        return;
+      }
+    });
+  },
+  appendTask: function (obj, list) {
+    const container = element.search(`.${list}`);
+    const taskContainer = element.create("div", "list-card");
+    const data = element.create("div", "list-data");
+    const title = element.create("span", "list-title");
+    const priority = element.create("span", "list-priority");
+    const date = element.create("span", "list-date");
+    const buttons = element.create("div", "icons");
+    const completeBtn = element.create("button", "list-complete");
+    const deleteBtn = element.create("button", "list-delete");
+    const priorityBtns = element.create("div", "priorityBtns");
+    const priorityUp = element.create("button", "priority-btn");
+    const priorityDown = element.create("button", "priority-btn");
+    element.append(buttons, completeBtn);
+    element.append(buttons, deleteBtn);
+    element.append(buttons, priorityBtns);
+    element.append(priorityBtns, priorityUp);
+    element.append(priorityBtns, priorityDown);
+    element.addText(title, obj.title);
+    element.addText(priority, "Priority: " + obj.priority);
+    element.addText(date, "Date: " + obj.date);
+    element.append(data, title);
+    element.append(taskContainer, data);
+    element.append(taskContainer, buttons);
+    element.append(data, priority);
+    element.append(data, date);
+    element.append(container, taskContainer);
   },
 };
 

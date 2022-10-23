@@ -17,7 +17,7 @@ export const components = {
     const main = document.querySelector(".main");
     if (condition == null) {
       const container = element.create("div", "todo-container");
-      const category = element.create("h6", "category");
+      const category = element.create("h6", "cardsHeader");
       const cards = element.create("div", "cards");
       element.addText(category, "General");
       element.append(container, category);
@@ -67,18 +67,19 @@ export const components = {
     const container = element.create("div", "todo-container");
     element.append(main, container);
   },
-  list: function (list, listTasks) {
+  list: function (list) {
     const container = element.search(`.${list}`);
     if (container == null) {
-      const todoContainer = element.search(".todo-container");
+      const todoContainer = element.search(".lists");
       const listContainer = element.create("div", list);
+      element.classAdd(listContainer, "category");
       const header = element.create("h6", "header");
       element.addText(header, list);
       element.append(listContainer, header);
       element.append(todoContainer, listContainer);
-      this.appendTask(listTasks);
+      //this.appendTask(listTasks);
     } else if (container != null) {
-      console.log("now append tasks");
+      return;
     }
     // if no container create container and append tasks
     // if container with list exist append tasks

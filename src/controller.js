@@ -11,11 +11,19 @@ export const controller = {
     this.header();
     this.buttons();
     listeners.init();
-    todo.newTask("Take bins out", "Bins are full", "1", "25/10", "Notes");
-    todo.newTask("Shopping", "Go to ASDA", "2", "25/10", "Notes");
-    todo.newTask("Shopping", "Go to ASDA", "3", "25/10", "Notes");
-    todo.newTask("Shopping", "Go to ASDA", "4", "25/10", "Notes");
-    todo.newTask("Shopping", "Go to ASDA", "5", "25/10", "Notes");
+
+    todo.newTask(
+      "Take bins out",
+      "Bins are full",
+      "1",
+      "25/10",
+      "Notes",
+      "Work"
+    );
+    todo.newTask("Shopping", "Go to ASDA", "2", "25/10", "Notes", "Shopping");
+    todo.newTask("Shopping", "Go to ASDA", "3", "25/10", "Notes", "Shopping");
+    todo.newTask("Shopping", "Go to ASDA", "4", "25/10", "Notes", "Shopping");
+    todo.newTask("Shopping", "Go to ASDA", "5", "25/10", "Notes", "General");
   },
   document: function () {
     const main = document.querySelector(".main");
@@ -45,13 +53,18 @@ export const controller = {
 
   render: function () {
     const container = document.querySelector(".todo-container");
-    if (container) {
-      container.remove();
+    let lists = todo.getList();
+    if (lists <= 1) {
+      if (container) {
+        container.remove();
+      }
+      const tasks = todo.tasks;
+      tasks.forEach((key) => {
+        components.cardData(key);
+      });
+    } else if (lists > 1) {
+      list.init();
     }
-    const tasks = todo.tasks;
-    tasks.forEach((key) => {
-      components.cardData(key);
-    });
   },
   inputs: function () {
     let input = element.search(".input");
@@ -158,4 +171,33 @@ export const controller = {
     const todoContainer = element.search(".todo-container");
     todoContainer.style.gridArea = area;
   },
+};
+
+const list = {
+  init: function () {
+    const lists = todo.category;
+    const tasks = todo.tasks;
+    this.check(lists, tasks);
+  },
+  check: function (lists, tasks) {
+    //console.log(lists);
+    //console.log(tasks);
+    lists.forEach((key) => {
+      this.listData(key, tasks);
+    });
+    /*
+    lists.forEach((key) => {
+      const task = tasks.filter(function (task) {
+        return task.list === key;
+      });
+    });
+    */
+  },
+  listData: function (list, tasks) {
+    const listTasks = tasks.filter(function (tasks) {
+      return tasks.list === list;
+    });
+    console.log(listTasks);
+  },
+  render: function () {},
 };

@@ -5,7 +5,6 @@ export const todo = {
   category: ["General", "Work", "Shopping"],
   newTask: function (title, description, priority, date, notes, list) {
     this.tasks.push({ title, description, priority, date, notes, list });
-    console.log(this.tasks);
     controller.resetData();
     this.render();
   },
@@ -20,5 +19,8 @@ export const todo = {
   },
   render: function () {
     controller.render();
+  },
+  getList: function () {
+    return this.category.length;
   },
 };

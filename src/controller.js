@@ -1,4 +1,4 @@
-import { drop } from "lodash";
+import { drop, isEqual } from "lodash";
 import { components } from "./components";
 import { element } from "./elements";
 import { listeners } from "./listeners";
@@ -136,11 +136,16 @@ export const controller = {
   },
   gridArea: function (area) {
     const todoContainer = element.search(".todo-container");
-    todoContainer.style.gridArea = area;
+    if (!todoContainer) {
+      return;
+    } else {
+      todoContainer.style.gridArea = area;
+    }
   },
   render: function () {
     const container = document.querySelector(".todo-container");
     let lists = todo.getList();
+    this.renderCheck();
     if (lists <= 1) {
       if (container) {
         container.remove();
@@ -152,6 +157,23 @@ export const controller = {
     } else if (lists > 1) {
       lista.init();
     }
+  },
+  renderCheck: function () {
+    const tasks = todo.tasks;
+    const lists = todo.category;
+    let taskArray = [];
+    let listArray = [];
+    for (let i = 0; i < lists.length; i++) {
+      const list = lists[i];
+      listArray.push(list);
+      for (let j = 0; j < tasks.length; j++) {
+        const task = tasks[j].list;
+        taskArray.push(task);
+      }
+    }
+    console.log(taskArray);
+    console.log(listArray);
+    //console.log(isEqual(taskArray, listArray));
   },
 };
 

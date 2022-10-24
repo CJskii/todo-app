@@ -82,8 +82,10 @@ h1 {
 }
 
 .list-card {
-  background-color: rgb(253, 183, 98);
+  background-color: rgba(116, 77, 207, 0.705);
   display: flex;
+  margin: 0.2rem;
+  border-radius: 10px;
 }
 
 .list-data {
@@ -97,11 +99,13 @@ h1 {
   font-size: 0.5rem;
   color: lightslategrey;
   font-style: italic;
+  padding-left: 0.1rem;
 }
 
 .list-title {
   font-size: 0.7rem;
   color: black;
+  padding-left: 0.1rem;
 }
 
 .list-complete,
@@ -115,6 +119,7 @@ h1 {
   justify-content: space-between;
   align-items: center;
   width: 30%;
+  padding: 0.2rem;
 }
 
 .priorityBtns {
@@ -130,6 +135,8 @@ h1 {
 .category {
   background-color: #3b00dd;
   width: 100%;
+  border-radius: 10px;
+  height: fit-content;
 }
 
 .category > .header {

@@ -239,6 +239,7 @@ const lista = {
     const priorityBtns = element.create("div", "priorityBtns");
     const priorityUp = element.create("button", "priority-btn");
     const priorityDown = element.create("button", "priority-btn");
+    listeners.listListeners(completeBtn, deleteBtn);
     element.append(buttons, completeBtn);
     element.append(buttons, deleteBtn);
     element.append(buttons, priorityBtns);

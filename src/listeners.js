@@ -69,6 +69,7 @@ export const listeners = {
     }
   },
   delete: function (e) {
+    console.log(e.target);
     const card = e.path[2];
     const taskTitle = card.firstChild.textContent;
     controller.deleteTask(taskTitle);
@@ -128,4 +129,12 @@ export const listeners = {
       return;
     }
   },
+  listListeners: function (completeBtn, deleteBtn, priorityUp, priorityDown) {
+    completeBtn.addEventListener("click", (e) => this.complete(e));
+    deleteBtn.addEventListener("click", (e) => this.delete(e));
+    priorityUp.addEventListener("click", (e) => this.priority(e));
+    priorityDown.addEventListener("click", (e) => this.priority(e));
+  },
+  completeList: function () {},
+  priority: function () {},
 };

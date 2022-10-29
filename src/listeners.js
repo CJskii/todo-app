@@ -130,11 +130,41 @@ export const listeners = {
     }
   },
   listListeners: function (completeBtn, deleteBtn, priorityUp, priorityDown) {
-    completeBtn.addEventListener("click", (e) => this.complete(e));
-    deleteBtn.addEventListener("click", (e) => this.delete(e));
-    priorityUp.addEventListener("click", (e) => this.priority(e));
-    priorityDown.addEventListener("click", (e) => this.priority(e));
+    completeBtn.addEventListener("click", (e) => this.completeList(e));
+    deleteBtn.addEventListener("click", (e) => this.deleteList(e));
+    priorityUp.addEventListener("click", (e) => this.priorityList(e));
+    priorityDown.addEventListener("click", (e) => this.priorityList(e));
   },
-  completeList: function () {},
-  priority: function () {},
+  completeList: function (e) {
+    const data = e.path[2].firstChild;
+    console.log(data);
+    for (let i = 0; i < 3; i++) {
+      if (data.children[i].style.textDecoration == "") {
+        data.children[i].style.textDecoration = "line-through";
+      } else {
+        data.children[i].style.textDecoration = "";
+      }
+    }
+  },
+  deleteList: function (e) {
+    const card = e.path[2];
+    const data = e.path[2].firstChild;
+    const taskTitle = data.firstChild.textContent;
+    controller.deleteTask(taskTitle);
+    card.remove();
+  },
+  priorityList: function (e) {
+    const button = e.target.classList.value;
+    const data = e.path[3].firstChild;
+    const taskTitle = data.firstChild.textContent;
+    if (button == "priority-btn priorityUp") {
+      console.log("priority up");
+      let value = "up";
+      controller.priorityTask(taskTitle, value);
+    } else if (button == "priority-btn priorityDown") {
+      console.log("priority down");
+      let value = "down";
+      controller.priorityTask(taskTitle, value);
+    }
+  },
 };

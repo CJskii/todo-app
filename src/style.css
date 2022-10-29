@@ -114,6 +114,22 @@ h1 {
   height: 25px;
 }
 
+.list-complete {
+  content: url(./check-circle.svg);
+}
+
+.list-delete {
+  content: url(./x-circle.svg);
+}
+
+.priorityUp {
+  content: url(./chevron-up.svg);
+}
+
+.priorityDown {
+  content: url(./chevron-down.svg);
+}
+
 .icons {
   display: flex;
   justify-content: space-between;

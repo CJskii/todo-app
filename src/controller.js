@@ -115,6 +115,37 @@ export const controller = {
       }
     }
   },
+  priorityTask: function (taskTitle, value) {
+    const task = taskTitle;
+    const tasks = todo.tasks;
+    for (let i = 0; i < tasks.length; i++) {
+      if (task == tasks[i].title) {
+        let priority = Number(tasks[i].priority);
+        if (value == "up" && priority < 5) {
+          priority++;
+          tasks[i].priority = priority;
+          this.priorityChange(priority, tasks[i].priority);
+        } else if (value == "down" && priority <= 5 && priority > 1) {
+          priority--;
+          tasks[i].priority = priority;
+          this.priorityChange(priority, tasks[i].priority);
+        } else {
+          console.log("Priority should be between 1 and 5");
+        }
+        break;
+      } else {
+        continue;
+      }
+    }
+  },
+  priorityChange: function (priority, task) {
+    if (priority <= 5) {
+      task = priority;
+      console.log(task);
+    } else {
+      return;
+    }
+  },
   renderDropdown: function () {
     components.myDropdown();
   },
@@ -145,7 +176,6 @@ export const controller = {
   render: function () {
     const container = document.querySelector(".todo-container");
     let lists = todo.getList();
-    this.renderCheck();
     if (lists <= 1) {
       if (container) {
         container.remove();
@@ -234,12 +264,14 @@ const lista = {
     const priority = element.create("span", "list-priority");
     const date = element.create("span", "list-date");
     const buttons = element.create("div", "icons");
-    const completeBtn = element.create("button", "list-complete");
-    const deleteBtn = element.create("button", "list-delete");
+    const completeBtn = element.create("i", "list-complete");
+    const deleteBtn = element.create("i", "list-delete");
     const priorityBtns = element.create("div", "priorityBtns");
-    const priorityUp = element.create("button", "priority-btn");
-    const priorityDown = element.create("button", "priority-btn");
-    listeners.listListeners(completeBtn, deleteBtn);
+    const priorityUp = element.create("i", "priority-btn");
+    const priorityDown = element.create("i", "priority-btn");
+    element.classAdd(priorityUp, "priorityUp");
+    element.classAdd(priorityDown, "priorityDown");
+    listeners.listListeners(completeBtn, deleteBtn, priorityUp, priorityDown);
     element.append(buttons, completeBtn);
     element.append(buttons, deleteBtn);
     element.append(buttons, priorityBtns);

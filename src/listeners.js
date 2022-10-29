@@ -24,19 +24,28 @@ export const listeners = {
   },
   todoBtn: function (e) {
     const input = element.search(".input");
-    if (input == null) {
-      controller.inputs();
-      this.addInput();
-      controller.renderDropdown();
-      controller.render();
-      controller.gridArea("5 / 1 / 6 / 6");
+    const myList = element.search(".myLists");
+    const categoryinput = element.search(".categoryInput");
+    if (myList) {
+      myList.remove();
+      this.todoLogic();
+    } else if (categoryinput) {
+      categoryinput.remove();
+      this.todoLogic();
     } else if (input != null) {
       let value = input.value;
       controller.data(value);
       controller.inputs();
     } else {
-      return;
+      this.todoLogic();
     }
+  },
+  todoLogic: function () {
+    controller.inputs();
+    this.addInput();
+    controller.renderDropdown();
+    controller.render();
+    controller.gridArea("4 / 1 / 6 / 6");
   },
   input: function (e) {
     const value = e.target.value;
@@ -81,6 +90,8 @@ export const listeners = {
   categoryBtn: function (e) {
     const input = element.search(".input");
     const categoryInput = element.search(".categoryInput");
+    const inputs = element.search(".inputs");
+    this.removeInputs(inputs);
     controller.resetData();
     if (categoryInput != null) {
       const value = categoryInput.value;
@@ -96,11 +107,14 @@ export const listeners = {
       }
     } else if (input == null) {
       this.categoryInput();
-    } else if (input != null) {
-      controller.removeDropdown();
-      console.log("not null");
-      input.remove();
+    } else if (inputs != null) {
+      inputs.remove();
       this.categoryInput();
+    }
+  },
+  removeInputs: function (inputs) {
+    if (inputs != null) {
+      inputs.remove();
     }
   },
   categoryInput: function () {
@@ -133,10 +147,10 @@ export const listeners = {
     }
   },
   listBtn: function (e) {
-    const container = element.search(".todo-container");
-    console.log(container.firstChild);
-    if (container.firstChild) {
-      container.firstChild.remove();
+    const container = element.search(".inputs");
+    const lists = element.search(".myLists");
+    if (container) {
+      container.remove();
       listButton.render();
     } else {
       listButton.render();

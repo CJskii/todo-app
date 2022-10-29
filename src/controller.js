@@ -35,12 +35,16 @@ export const controller = {
   inputs: function () {
     let input = element.search(".input");
     const parent = controller.document();
-    this.categoryInputCheck();
+    console.log(parent);
+    //this.categoryInputCheck();
     if (input === null) {
+      const container = element.create("div", "inputs");
       const input = element.create("input", "input");
+      element.classAdd(container, "todo-inputs");
       element.classAdd(input, "titleInput");
       element.placeholder(input, "Title");
-      element.append(parent, input);
+      element.append(container, input);
+      element.append(parent, container);
     } else if (input.placeholder == "Title") {
       element.classRemove(input, "titleInput");
       element.classAdd(input, "desc");
@@ -61,10 +65,12 @@ export const controller = {
       input.type = "text";
       input.placeholder = "Notes";
     } else if (input.placeholder == "Notes") {
-      let main = element.search(".main");
-      element.remove(main, input);
+      const main = element.search(".inputs");
+      const todoBtn = element.search(".btn");
+      element.addText(todoBtn, "New Todo");
+      main.remove();
       controller.gridArea("3 / 1 / 6 / 6");
-      this.removeDropdown();
+      //this.removeDropdown();
     }
     input = element.search(".input");
     element.clearValue(input);
@@ -296,31 +302,45 @@ const lista = {
 
 export const listButton = {
   render: function () {
+    this.remove();
+    controller.gridArea("4 / 1 / 6 / 6");
     const lists = todo.category;
     lists.forEach((list) => {
       this.createComponent(list);
     });
   },
-  createComponent: function (list) {
-    const todo = element.search(".todo-container");
-    const container = element.search(".myLists");
-    if (!container) {
-      const container = element.create("div", "myLists");
-      this.componentTemplate(todo, container, list);
-    } else if (container) {
-      this.componentTemplate(todo, container, list);
+  remove: function () {
+    const inputs = element.search(".inputs");
+    const categoryInput = element.search(".categoryInput");
+    if (inputs) {
+      inputs.remove();
+    } else if (categoryInput) {
+      categoryInput.remove();
     }
   },
-  componentTemplate: function (todo, container, list) {
+  createComponent: function (list) {
+    const inputs = element.search(".inputs");
+    console.log(inputs);
+    if (!inputs) {
+      const inputs = element.create("div", "inputs");
+      this.componentTemplate(inputs, list);
+    } else if (inputs) {
+      this.componentTemplate(inputs, list);
+    }
+  },
+  componentTemplate: function (inputs, list) {
+    const main = element.search(".main");
     const listcontainer = element.create("div", "list");
     const paragraph = element.create("p", "list-name");
     const deleteBtn = element.create("i", "list-delete");
+    element.classAdd(inputs, "myLists");
     deleteBtn.addEventListener("click", (e) => this.delete(e));
     element.addText(paragraph, list);
     element.append(listcontainer, paragraph);
     element.append(listcontainer, deleteBtn);
-    element.append(container, listcontainer);
-    element.append(todo, container);
+    element.append(inputs, listcontainer);
+    element.append(main, inputs);
+    //element.append(todo, container);
   },
   delete: function (e) {
     // listener to list delete button

@@ -34,11 +34,13 @@ export const components = {
     element.append(main, category);
   },
   myDropdown: function () {
-    const main = element.search(".main");
+    const main = element.search(".inputs");
+    const container = element.create("div", "dropdown-container");
     const label = labelTemplate();
     const select = selectTemplate();
-    element.append(main, label);
-    element.append(main, select);
+    element.append(container, label);
+    element.append(container, select);
+    element.append(main, container);
     controller.dropdownContent();
   },
   header: function () {

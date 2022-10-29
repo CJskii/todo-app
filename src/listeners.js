@@ -160,11 +160,11 @@ export const listeners = {
     if (button == "priority-btn priorityUp") {
       console.log("priority up");
       let value = "up";
-      controller.priorityTask(taskTitle, value);
+      controller.priorityTask(taskTitle, value, data);
     } else if (button == "priority-btn priorityDown") {
       console.log("priority down");
       let value = "down";
-      controller.priorityTask(taskTitle, value);
+      controller.priorityTask(taskTitle, value, data);
     }
   },
 };

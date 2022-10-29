@@ -115,7 +115,7 @@ export const controller = {
       }
     }
   },
-  priorityTask: function (taskTitle, value) {
+  priorityTask: function (taskTitle, value, data) {
     const task = taskTitle;
     const tasks = todo.tasks;
     for (let i = 0; i < tasks.length; i++) {
@@ -125,10 +125,12 @@ export const controller = {
           priority++;
           tasks[i].priority = priority;
           this.priorityChange(priority, tasks[i].priority);
+          this.renderPriority(data, priority);
         } else if (value == "down" && priority <= 5 && priority > 1) {
           priority--;
           tasks[i].priority = priority;
           this.priorityChange(priority, tasks[i].priority);
+          this.renderPriority(data, priority);
         } else {
           console.log("Priority should be between 1 and 5");
         }
@@ -141,10 +143,13 @@ export const controller = {
   priorityChange: function (priority, task) {
     if (priority <= 5) {
       task = priority;
-      console.log(task);
     } else {
       return;
     }
+  },
+  renderPriority: function (data, priority) {
+    const prio = data.querySelector(".list-priority");
+    element.addText(prio, `Priority: ${priority}`);
   },
   renderDropdown: function () {
     components.myDropdown();

@@ -294,25 +294,49 @@ const lista = {
   },
 };
 
-const list = {
-  init: function () {
+export const listButton = {
+  render: function () {
     const lists = todo.category;
-    const tasks = todo.tasks;
-    console.log(tasks);
-    this.check(lists, tasks);
-  },
-  check: function (lists, tasks) {
-    lists.forEach((key) => {
-      this.listData(key, tasks);
+    lists.forEach((list) => {
+      this.createComponent(list);
     });
   },
-  listData: function (list, tasks) {
-    const listTasks = tasks.filter(function (tasks) {
-      return tasks.list === list;
-    });
-    this.render(list, listTasks);
+  createComponent: function (list) {
+    const todo = element.search(".todo-container");
+    const container = element.search(".myLists");
+    if (!container) {
+      const container = element.create("div", "myLists");
+      this.componentTemplate(todo, container, list);
+    } else if (container) {
+      this.componentTemplate(todo, container, list);
+    }
   },
-  render: function (list, listTasks) {
-    components.list(list, listTasks);
+  componentTemplate: function (todo, container, list) {
+    const listcontainer = element.create("div", "list");
+    const paragraph = element.create("p", "list-name");
+    const deleteBtn = element.create("i", "list-delete");
+    deleteBtn.addEventListener("click", (e) => this.delete(e));
+    element.addText(paragraph, list);
+    element.append(listcontainer, paragraph);
+    element.append(listcontainer, deleteBtn);
+    element.append(container, listcontainer);
+    element.append(todo, container);
+  },
+  delete: function (e) {
+    // listener to list delete button
+    const data = e.path[1];
+    const list = data.firstChild.textContent;
+    const lists = todo.category;
+    if (list == "General") {
+      console.log("Cannot delete default list");
+      return;
+    } else {
+      for (let i = 0; i < lists.length; i++) {
+        if (lists[i] == list) {
+          todo.deleteCategory(i);
+          data.remove();
+        }
+      }
+    }
   },
 };

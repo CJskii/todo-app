@@ -86,6 +86,7 @@ h1 {
   display: flex;
   margin: 0.2rem;
   border-radius: 10px;
+  border: 1px solid transparent;
 }
 
 .list-data {
@@ -130,6 +131,20 @@ h1 {
   content: url(./chevron-down.svg);
 }
 
+.list-complete:hover,
+.list-delete:hover,
+.priority-btn:hover {
+  transition: ease-in-out 0.3s;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.list-card:hover {
+  background-color: rgba(116, 77, 207, 0.905);
+  transition: ease-in-out 0.5s;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
 .icons {
   display: flex;
   justify-content: space-between;
@@ -157,6 +172,7 @@ h1 {
 
 .category > .header {
   text-align: center;
+  padding: 0.1rem;
 }
 
 .cards {
@@ -337,4 +353,27 @@ select:focus {
 
 #list {
   width: 150px;
+}
+
+.myLists {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 25px;
+}
+
+.list {
+  background-color: #3b00dd;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 15px;
+  padding: 0 0.2rem;
+  border-radius: 10px;
+}
+
+.list-name {
+  font-size: 0.7rem;
 }

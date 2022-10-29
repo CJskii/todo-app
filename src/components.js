@@ -54,11 +54,15 @@ export const components = {
     const container = element.create("div", "buttons");
     const newBtn = element.create("button", "btn");
     const categoryBtn = element.create("button", "btn");
+    const listBtn = element.create("button", "btn");
     element.classAdd(categoryBtn, "btn-category");
+    element.classAdd(listBtn, "btn-list");
     element.addText(newBtn, "New Todo");
     element.addText(categoryBtn, "New List");
+    element.addText(listBtn, "My Lists");
     element.append(container, newBtn);
     element.append(container, categoryBtn);
+    element.append(container, listBtn);
     element.append(parent, container);
     return container;
   },

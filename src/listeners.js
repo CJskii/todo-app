@@ -2,6 +2,7 @@ import { element } from "./elements";
 import { controller } from "./controller";
 import { components } from "./components";
 import { todo } from "./todo";
+import { listButton } from "./controller";
 // Event
 export const listeners = {
   // initiate eventListeners
@@ -11,8 +12,10 @@ export const listeners = {
   buttonListeners: function () {
     const button = element.search(".btn");
     const buttonCategory = element.search(".btn-category");
+    const buttonList = element.search(".btn-list");
     button.addEventListener("click", (e) => this.todoBtn(e));
     buttonCategory.addEventListener("click", (e) => this.categoryBtn(e));
+    buttonList.addEventListener("click", (e) => this.listBtn(e));
   },
   addInput: function () {
     let input = document.querySelector(".input");
@@ -127,6 +130,16 @@ export const listeners = {
       this.categoryBtn();
     } else {
       return;
+    }
+  },
+  listBtn: function (e) {
+    const container = element.search(".todo-container");
+    console.log(container.firstChild);
+    if (container.firstChild) {
+      container.firstChild.remove();
+      listButton.render();
+    } else {
+      listButton.render();
     }
   },
   listListeners: function (completeBtn, deleteBtn, priorityUp, priorityDown) {

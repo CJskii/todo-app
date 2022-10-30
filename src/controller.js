@@ -12,7 +12,7 @@ export const controller = {
     components.buttons();
     components.emptyTodos();
     listeners.init();
-    /*
+
     todo.newTask(
       "Take bins out",
       "Bins are full",
@@ -21,10 +21,10 @@ export const controller = {
       "Notes",
       "Work"
     );
-    /*
+
     todo.newTask("Shopping", "Go to ASDA", "2", "25/10", "Notes", "Shopping");
     todo.newTask("Shopping", "Go to ASDA", "3", "25/10", "Notes", "Shopping");
-    */
+
     //todo.newTask("Shopping", "Go to ASDA", "4", "25/10", "Notes", "Shopping");
     //todo.newTask("Shopping", "Go to ASDA", "5", "25/10", "Notes", "General");
   },
@@ -43,6 +43,7 @@ export const controller = {
       element.classAdd(container, "todo-inputs");
       element.classAdd(input, "titleInput");
       element.placeholder(input, "Title");
+      input.required = true;
       element.append(container, input);
       element.append(parent, container);
     } else if (input.placeholder == "Title") {
@@ -199,7 +200,7 @@ export const controller = {
       lista.init();
     }
   },
-  renderCheck: function () {
+  /*renderCheck: function () {
     const tasks = todo.tasks;
     const lists = todo.category;
     let taskArray = [];
@@ -215,7 +216,7 @@ export const controller = {
     console.log(taskArray);
     console.log(listArray);
     //console.log(isEqual(taskArray, listArray));
-  },
+  },*/
 };
 
 const lista = {
@@ -228,7 +229,6 @@ const lista = {
       todos.remove();
       header.remove();
     }
-    //console.log(lists.length);
     this.container();
     lists.forEach((list) => {
       const task = tasks.filter(function (task) {
@@ -237,7 +237,6 @@ const lista = {
       console.log(task);
       if (task.length > 0) {
         components.list(list);
-        //this.styles(task.length);
         this.taskData(list);
       }
     });
@@ -261,7 +260,9 @@ const lista = {
         const title = task.title;
         const date = task.date;
         const priority = task.priority;
-        this.appendTask({ title, date, priority }, list);
+        const description = task.description;
+        const notes = task.notes;
+        this.appendTask({ title, description, date, priority, notes }, list);
       } else {
         return;
       }
@@ -274,15 +275,25 @@ const lista = {
     const title = element.create("span", "list-title");
     const priority = element.create("span", "list-priority");
     const date = element.create("span", "list-date");
+    const description = element.create("span", "list-description");
+    const notes = element.create("span", "list-notes");
     const buttons = element.create("div", "icons");
     const completeBtn = element.create("i", "list-complete");
     const deleteBtn = element.create("i", "list-delete");
     const priorityBtns = element.create("div", "priorityBtns");
     const priorityUp = element.create("i", "priority-btn");
     const priorityDown = element.create("i", "priority-btn");
+    description.style.display = "none";
+    notes.style.display = "none";
     element.classAdd(priorityUp, "priorityUp");
     element.classAdd(priorityDown, "priorityDown");
-    listeners.listListeners(completeBtn, deleteBtn, priorityUp, priorityDown);
+    listeners.listListeners(
+      completeBtn,
+      deleteBtn,
+      priorityUp,
+      priorityDown,
+      taskContainer
+    );
     element.append(buttons, completeBtn);
     element.append(buttons, deleteBtn);
     element.append(buttons, priorityBtns);
@@ -291,11 +302,15 @@ const lista = {
     element.addText(title, obj.title);
     element.addText(priority, "Priority: " + obj.priority);
     element.addText(date, "Date: " + obj.date);
+    element.addText(description, "Description: " + obj.description);
+    element.addText(notes, "Notes: " + obj.notes);
     element.append(data, title);
     element.append(taskContainer, data);
     element.append(taskContainer, buttons);
+    element.append(data, description);
     element.append(data, priority);
     element.append(data, date);
+    element.append(data, notes);
     element.append(container, taskContainer);
   },
 };

@@ -156,11 +156,18 @@ export const listeners = {
       listButton.render();
     }
   },
-  listListeners: function (completeBtn, deleteBtn, priorityUp, priorityDown) {
+  listListeners: function (
+    completeBtn,
+    deleteBtn,
+    priorityUp,
+    priorityDown,
+    taskContainer
+  ) {
     completeBtn.addEventListener("click", (e) => this.completeList(e));
     deleteBtn.addEventListener("click", (e) => this.deleteList(e));
     priorityUp.addEventListener("click", (e) => this.priorityList(e));
     priorityDown.addEventListener("click", (e) => this.priorityList(e));
+    taskContainer.addEventListener("click", (e) => this.expandTask(e));
   },
   completeList: function (e) {
     const data = e.path[2].firstChild;
@@ -192,6 +199,32 @@ export const listeners = {
       console.log("priority down");
       let value = "down";
       controller.priorityTask(taskTitle, value, data);
+    }
+  },
+  expandTask: function (e) {
+    const target = e.path[1].classList.value;
+    if (target == "list-data") {
+      const click = e.path[1];
+      const element = click.children;
+      const description = element.item(1);
+      const notes = element.item(4);
+      this.taskDisplay(description, notes);
+    } else if (target == "list-card") {
+      const click = e.path[1];
+      const data = click.firstChild;
+      const element = data.children;
+      const description = element.item(1);
+      const notes = element.item(4);
+      this.taskDisplay(description, notes);
+    }
+  },
+  taskDisplay: function (description, notes) {
+    if (description.style.display == "") {
+      description.style.display = "none";
+      notes.style.display = "none";
+    } else if (description.style.display == "none") {
+      description.style.display = "";
+      notes.style.display = "";
     }
   },
 };

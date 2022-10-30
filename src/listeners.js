@@ -182,7 +182,7 @@ export const listeners = {
   completeList: function (e) {
     const data = e.path[2].firstChild;
     console.log(data);
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 5; i++) {
       if (data.children[i].style.textDecoration == "") {
         data.children[i].style.textDecoration = "line-through";
       } else {

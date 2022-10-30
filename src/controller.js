@@ -43,7 +43,6 @@ export const controller = {
       element.classAdd(container, "todo-inputs");
       element.classAdd(input, "titleInput");
       element.placeholder(input, "Title");
-      input.required = true;
       element.append(container, input);
       element.append(parent, container);
     } else if (input.placeholder == "Title") {
@@ -188,7 +187,7 @@ export const controller = {
   render: function () {
     const container = document.querySelector(".todo-container");
     let lists = todo.getList();
-    if (lists <= 1) {
+    /*if (lists <= 1) {
       if (container) {
         container.remove();
       }
@@ -196,27 +195,10 @@ export const controller = {
       tasks.forEach((key) => {
         components.cardData(key);
       });
-    } else if (lists > 1) {
+    } else*/ if (lists >= 1) {
       lista.init();
     }
   },
-  /*renderCheck: function () {
-    const tasks = todo.tasks;
-    const lists = todo.category;
-    let taskArray = [];
-    let listArray = [];
-    for (let i = 0; i < lists.length; i++) {
-      const list = lists[i];
-      listArray.push(list);
-      for (let j = 0; j < tasks.length; j++) {
-        const task = tasks[j].list;
-        taskArray.push(task);
-      }
-    }
-    console.log(taskArray);
-    console.log(listArray);
-    //console.log(isEqual(taskArray, listArray));
-  },*/
 };
 
 const lista = {
@@ -370,8 +352,18 @@ export const listButton = {
         if (lists[i] == list) {
           todo.deleteCategory(i);
           data.remove();
+          this.deleteDom(data);
         }
       }
+    }
+  },
+  deleteDom: function (data) {
+    const listName = data.firstChild.textContent;
+    if (listName != null) {
+      const element = document.querySelector(`.${listName}`);
+      element.remove();
+    } else {
+      console.log("No DOM element to delete");
     }
   },
 };

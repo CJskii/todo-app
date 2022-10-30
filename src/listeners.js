@@ -40,7 +40,8 @@ export const listeners = {
       if (checker == false) {
         return;
       } else if (checker == true) {
-        console.log(checker);
+        value = data.transform(input, value);
+        console.log(value);
         button.textContent = "New Todo";
         controller.data(value);
         controller.inputs();
@@ -223,10 +224,14 @@ export const listeners = {
     }
   },
   taskDisplay: function (description, notes) {
-    if (description.style.display == "") {
+    if (notes == null && description.style.display == "") {
+      description.style.display = "none";
+    } else if (notes != null && description.style.display == "") {
       description.style.display = "none";
       notes.style.display = "none";
-    } else if (description.style.display == "none") {
+    } else if (notes == null && description.style.display == "none") {
+      description.style.display = "";
+    } else if (notes != null && description.style.display == "none") {
       description.style.display = "";
       notes.style.display = "";
     }
@@ -239,8 +244,31 @@ const data = {
       return false;
     } else if (input.placeholder == "Priority / 1 - 5" && value > 5) {
       return false;
+    } else if (input.placeholder == "Due Date" && value.length > 10) {
+      return false;
     } else {
       return true;
     }
+  },
+  transform: function (input, value) {
+    const placeholder = input.placeholder;
+    let newString;
+    if (
+      placeholder == "Title" ||
+      placeholder == "Description" ||
+      placeholder == "Notes"
+    ) {
+      newString = this.upperCase(value);
+      return newString;
+    } else if (placeholder == "Due Date") {
+      const string = value.split("");
+      const newString = string[8] + string[9] + "/" + string[5] + string[6];
+      return newString;
+    } else {
+      return value;
+    }
+  },
+  upperCase: function (string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   },
 };

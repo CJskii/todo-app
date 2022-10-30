@@ -285,14 +285,17 @@ const lista = {
     element.addText(priority, "Priority: " + obj.priority);
     element.addText(date, "Date: " + obj.date);
     element.addText(description, "Description: " + obj.description);
-    element.addText(notes, "Notes: " + obj.notes);
+
     element.append(data, title);
     element.append(taskContainer, data);
     element.append(taskContainer, buttons);
     element.append(data, description);
     element.append(data, priority);
     element.append(data, date);
-    element.append(data, notes);
+    if (obj.notes != "") {
+      element.addText(notes, "Notes: " + obj.notes);
+      element.append(data, notes);
+    }
     element.append(container, taskContainer);
   },
 };

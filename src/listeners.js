@@ -3,6 +3,7 @@ import { controller } from "./controller";
 import { components } from "./components";
 import { todo } from "./todo";
 import { listButton } from "./controller";
+import { validate } from "schema-utils";
 // Event
 export const listeners = {
   // initiate eventListeners
@@ -26,6 +27,7 @@ export const listeners = {
     const input = element.search(".input");
     const myList = element.search(".myLists");
     const categoryinput = element.search(".categoryInput");
+    const button = document.querySelector(".btn");
     if (myList) {
       myList.remove();
       this.todoLogic();
@@ -34,8 +36,15 @@ export const listeners = {
       this.todoLogic();
     } else if (input != null) {
       let value = input.value;
-      controller.data(value);
-      controller.inputs();
+      const checker = data.validate(input, value);
+      if (checker == false) {
+        return;
+      } else if (checker == true) {
+        console.log(checker);
+        button.textContent = "New Todo";
+        controller.data(value);
+        controller.inputs();
+      }
     } else {
       this.todoLogic();
     }
@@ -220,6 +229,18 @@ export const listeners = {
     } else if (description.style.display == "none") {
       description.style.display = "";
       notes.style.display = "";
+    }
+  },
+};
+
+const data = {
+  validate: function (input, value) {
+    if (value == "" && input.placeholder != "Notes") {
+      return false;
+    } else if (input.placeholder == "Priority / 1 - 5" && value > 5) {
+      return false;
+    } else {
+      return true;
     }
   },
 };

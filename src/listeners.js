@@ -210,12 +210,7 @@ export const listeners = {
       const notes = element.item(4);
       this.taskDisplay(description, notes);
     } else if (target == "list-card") {
-      const click = e.path[1];
-      const data = click.firstChild;
-      const element = data.children;
-      const description = element.item(1);
-      const notes = element.item(4);
-      this.taskDisplay(description, notes);
+      return;
     }
   },
   taskDisplay: function (description, notes) {

@@ -44,12 +44,15 @@ export const components = {
     controller.dropdownContent();
   },
   header: function () {
+    const container = document.createElement("div");
     const element = document.createElement("div");
     element.classList.add("main");
+    container.classList.add("bg-cover");
     const header = document.createElement("h1");
     header.textContent = "Todo App";
     element.appendChild(header);
-    document.body.appendChild(element);
+    container.appendChild(element);
+    document.body.appendChild(container);
   },
   buttons: function () {
     const parent = controller.document();

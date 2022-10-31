@@ -87,6 +87,7 @@ export const listeners = {
         card.children[i].style.textDecoration = "line-through";
       } else {
         card.children[i].style.textDecoration = "";
+        card.children[i].style.color = "";
       }
     }
   },
@@ -181,12 +182,13 @@ export const listeners = {
   },
   completeList: function (e) {
     const data = e.path[2].firstChild;
-    console.log(data);
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < data.childElementCount; i++) {
       if (data.children[i].style.textDecoration == "") {
         data.children[i].style.textDecoration = "line-through";
+        data.children[i].style.color = "#79757580";
       } else {
         data.children[i].style.textDecoration = "";
+        data.children[i].style.color = "";
       }
     }
   },
@@ -242,7 +244,10 @@ const data = {
   validate: function (input, value) {
     if (value == "" && input.placeholder != "Notes") {
       return false;
-    } else if (input.placeholder == "Priority / 1 - 5" && value > 5) {
+    } else if (
+      input.placeholder == "Priority / 1 - 5" &&
+      (value > 5 || value < 1)
+    ) {
       return false;
     } else if (input.placeholder == "Due Date" && value.length > 10) {
       return false;

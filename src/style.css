@@ -1,6 +1,7 @@
 * {
   padding: 0;
   margin: 0;
+  font-family: Nunito, sans-serif;
 }
 
 :root {
@@ -11,8 +12,18 @@ html {
   min-height: 100vh;
 }
 
+@font-face {
+  font-family: Orbitron;
+  src: url(./fonts/Orbitron-Regular.ttf);
+}
+
+@font-face {
+  font-family: Nunito;
+  src: url(./fonts/NunitoSans-Regular.ttf);
+}
+
 .bg-cover {
-  background: url(./background2.svg);
+  background: url(./img/background.svg);
 }
 
 .main {
@@ -34,6 +45,7 @@ h1 {
   justify-self: center;
   align-self: center;
   grid-area: 1 / 1 / 2 / 6;
+  font-family: Orbitron, sans-serif;
 }
 
 .btn {
@@ -51,6 +63,7 @@ h1 {
   border: none;
   background-size: 120% auto;
   background-image: linear-gradient(315deg, #000428 0%, #3b00dd 75%);
+  font-size: 0.35rem;
 }
 .btn:hover {
   background-position: right center;
@@ -147,19 +160,19 @@ h1 {
 }
 
 .list-complete {
-  content: url(./check-circle.svg);
+  content: url(./img/check-circle.svg);
 }
 
 .list-delete {
-  content: url(./x-circle.svg);
+  content: url(./img/x-circle.svg);
 }
 
 .priorityUp {
-  content: url(./chevron-up.svg);
+  content: url(./img/chevron-up.svg);
 }
 
 .priorityDown {
-  content: url(./chevron-down.svg);
+  content: url(./img/chevron-down.svg);
 }
 
 .list-complete:hover,
@@ -196,7 +209,9 @@ h1 {
 
 .category > .header {
   text-align: center;
+  font-family: Orbitron, sans-serif;
   padding: 0.1rem;
+  letter-spacing: 2px;
 }
 
 .cards {

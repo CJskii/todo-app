@@ -1,9 +1,7 @@
 import { element } from "./elements";
 import { controller } from "./controller";
-import { components } from "./components";
 import { todo } from "./todo";
 import { listButton } from "./controller";
-import { validate } from "schema-utils";
 // Event
 export const listeners = {
   // initiate eventListeners

@@ -110,9 +110,10 @@ export const listeners = {
       categoryBtn.textContent = "New List";
       categoryInput.remove();
       controller.gridArea("3 / 1 / 6 / 6");
-      console.log(todo.category);
       if (categoryInput.value == "") {
         return;
+      } else if (todo.category.length >= 4) {
+        return console.log("Maximum 4 categories allowed");
       } else {
         todo.category.push(value);
       }

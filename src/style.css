@@ -457,3 +457,22 @@ select:focus {
     font-size: 0.4rem;
   }
 }
+
+@media (max-width: 700px) {
+  .btn,
+  h1 {
+    display: none;
+  }
+  .todo-container:before {
+    text-indent: 0;
+    content: "We currently don't support mobile devices :)";
+    float: left;
+  }
+  .todo-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    color: rgb(248, 235, 252);
+  }
+}

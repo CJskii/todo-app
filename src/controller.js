@@ -12,21 +12,6 @@ export const controller = {
     components.buttons();
     components.emptyTodos();
     listeners.init();
-
-    todo.newTask(
-      "Take bins out",
-      "Bins are full",
-      "1",
-      "25/10",
-      "Notes",
-      "Work"
-    );
-
-    todo.newTask("Shopping", "Go to ASDA", "2", "25/10", "Notes", "Shopping");
-    todo.newTask("Shopping", "Go to ASDA", "3", "25/10", "Notes", "Shopping");
-
-    //todo.newTask("Shopping", "Go to ASDA", "4", "25/10", "Notes", "Shopping");
-    //todo.newTask("Shopping", "Go to ASDA", "5", "25/10", "Notes", "General");
   },
   document: function () {
     const main = document.querySelector(".main");
@@ -35,8 +20,6 @@ export const controller = {
   inputs: function () {
     let input = element.search(".input");
     const parent = controller.document();
-    console.log(parent);
-    //this.categoryInputCheck();
     if (input === null) {
       const container = element.create("div", "inputs");
       const input = element.create("input", "input");
@@ -70,7 +53,6 @@ export const controller = {
       element.addText(todoBtn, "New Todo");
       main.remove();
       controller.gridArea("3 / 1 / 6 / 6");
-      //this.removeDropdown();
     }
     input = element.search(".input");
     element.clearValue(input);
@@ -185,17 +167,8 @@ export const controller = {
     }
   },
   render: function () {
-    const container = document.querySelector(".todo-container");
     let lists = todo.getList();
-    /*if (lists <= 1) {
-      if (container) {
-        container.remove();
-      }
-      const tasks = todo.tasks;
-      tasks.forEach((key) => {
-        components.cardData(key);
-      });
-    } else*/ if (lists >= 1) {
+    if (lists >= 1) {
       lista.init();
     }
   },
@@ -340,7 +313,6 @@ export const listButton = {
     element.append(listcontainer, deleteBtn);
     element.append(inputs, listcontainer);
     element.append(main, inputs);
-    //element.append(todo, container);
   },
   delete: function (e) {
     // listener to list delete button
@@ -362,7 +334,8 @@ export const listButton = {
   },
   deleteDom: function (data) {
     const listName = data.firstChild.textContent;
-    if (listName != null) {
+    const dom = element.search(`.${listName}`);
+    if (listName != null && dom != null) {
       const element = document.querySelector(`.${listName}`);
       element.remove();
     } else {

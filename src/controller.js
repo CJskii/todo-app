@@ -1,4 +1,3 @@
-import { drop, isEqual } from "lodash";
 import { components } from "./components";
 import { element } from "./elements";
 import { listeners } from "./listeners";
@@ -12,6 +11,7 @@ export const controller = {
     components.buttons();
     components.emptyTodos();
     listeners.init();
+    // call local storage function
   },
   document: function () {
     const main = document.querySelector(".main");
@@ -189,7 +189,6 @@ const lista = {
       const task = tasks.filter(function (task) {
         return task.list == list;
       });
-      console.log(task);
       if (task.length > 0) {
         components.list(list);
         this.taskData(list);
@@ -271,6 +270,10 @@ const lista = {
     }
     element.append(container, taskContainer);
   },
+  storageRender: function () {
+    let oldItems = JSON.parse(localStorage.getItem("itemsArray")) || [];
+    oldItems.forEach;
+  },
 };
 
 export const listButton = {
@@ -341,5 +344,12 @@ export const listButton = {
     } else {
       console.log("No DOM element to delete");
     }
+  },
+};
+
+const localStorage = {
+  check: function () {
+    // if empty return
+    // else if not empty render from storage
   },
 };

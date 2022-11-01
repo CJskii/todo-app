@@ -5,6 +5,7 @@ export const todo = {
   category: ["General"],
   newTask: function (title, description, priority, date, notes, list) {
     this.tasks.push({ title, description, priority, date, notes, list });
+    this.storageLocal({ title, description, priority, date, notes, list });
     controller.resetData();
     this.render();
   },
@@ -22,5 +23,11 @@ export const todo = {
   },
   getList: function () {
     return this.category.length;
+  },
+  storageLocal: function (obj) {
+    let oldItems = JSON.parse(localStorage.getItem("itemsArray")) || [];
+    let newItem = obj;
+    oldItems.push(newItem);
+    localStorage.setItem("itemsArray", JSON.stringify(oldItems));
   },
 };

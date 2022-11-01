@@ -11,7 +11,12 @@ export const controller = {
     components.buttons();
     components.emptyTodos();
     listeners.init();
-    // call local storage function
+    const storage = todo.getLocalStorage();
+    if (storage.length == 0) {
+      return;
+    } else if (storage.length > 0) {
+      this.render();
+    }
   },
   document: function () {
     const main = document.querySelector(".main");
@@ -177,7 +182,7 @@ export const controller = {
 const lista = {
   init: function () {
     const lists = todo.category;
-    const tasks = todo.tasks;
+    const tasks = todo.getLocalStorage();
     const todos = element.search(".cards");
     const header = element.search(".cardsHeader");
     if (todos != null) {
@@ -208,7 +213,7 @@ const lista = {
     }
   },
   taskData: function (list) {
-    const tasks = todo.tasks;
+    const tasks = todo.getLocalStorage();
     tasks.forEach((task) => {
       if (task.list == list) {
         const title = task.title;
@@ -269,10 +274,6 @@ const lista = {
       element.append(data, notes);
     }
     element.append(container, taskContainer);
-  },
-  storageRender: function () {
-    let oldItems = JSON.parse(localStorage.getItem("itemsArray")) || [];
-    oldItems.forEach;
   },
 };
 
@@ -344,12 +345,5 @@ export const listButton = {
     } else {
       console.log("No DOM element to delete");
     }
-  },
-};
-
-const localStorage = {
-  check: function () {
-    // if empty return
-    // else if not empty render from storage
   },
 };

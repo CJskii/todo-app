@@ -30,4 +30,7 @@ export const todo = {
     oldItems.push(newItem);
     localStorage.setItem("itemsArray", JSON.stringify(oldItems));
   },
+  getLocalStorage: function () {
+    return JSON.parse(localStorage.getItem("itemsArray")) || [];
+  },
 };

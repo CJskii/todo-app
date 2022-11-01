@@ -154,7 +154,7 @@ export const controller = {
     list.remove();
   },
   dropdownContent: function () {
-    const myArray = todo.category;
+    const myArray = todo.getList();
     const content = element.search(".drop-select");
     myArray.forEach((key) => {
       const option = element.create("option", "option");
@@ -172,7 +172,7 @@ export const controller = {
     }
   },
   render: function () {
-    let lists = todo.getList();
+    let lists = todo.getListLength();
     if (lists >= 1) {
       lista.init();
     }
@@ -181,7 +181,7 @@ export const controller = {
 
 const lista = {
   init: function () {
-    const lists = todo.category;
+    const lists = todo.getList();
     const tasks = todo.getLocalStorage();
     const todos = element.search(".cards");
     const header = element.search(".cardsHeader");
@@ -281,7 +281,7 @@ export const listButton = {
   render: function () {
     this.remove();
     controller.gridArea("4 / 1 / 6 / 6");
-    const lists = todo.category;
+    const lists = todo.getList();
     lists.forEach((list) => {
       this.createComponent(list);
     });
@@ -297,7 +297,6 @@ export const listButton = {
   },
   createComponent: function (list) {
     const inputs = element.search(".inputs");
-    console.log(inputs);
     if (!inputs) {
       const inputs = element.create("div", "inputs");
       this.componentTemplate(inputs, list);
@@ -322,7 +321,7 @@ export const listButton = {
     // listener to list delete button
     const data = e.path[1];
     const list = data.firstChild.textContent;
-    const lists = todo.category;
+    const lists = todo.getList();
     if (list == "General") {
       console.log("Cannot delete default list");
       return;

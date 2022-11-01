@@ -100,6 +100,7 @@ export const listeners = {
     const input = element.search(".input");
     const categoryInput = element.search(".categoryInput");
     const inputs = element.search(".inputs");
+    const lists = todo.getList();
     this.removeInputs(inputs);
     controller.resetData();
     if (categoryInput != null) {
@@ -110,10 +111,10 @@ export const listeners = {
       controller.gridArea("3 / 1 / 6 / 6");
       if (categoryInput.value == "") {
         return;
-      } else if (todo.category.length >= 4) {
+      } else if (lists.length >= 4) {
         return console.log("Maximum 4 categories allowed");
       } else {
-        todo.category.push(value);
+        todo.newList(value);
       }
     } else if (input == null) {
       this.categoryInput();

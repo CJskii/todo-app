@@ -98,7 +98,10 @@ export const controller = {
   },
   deleteTask: function (taskTitle) {
     const task = taskTitle;
-    const tasks = todo.tasks;
+    console.log(taskTitle);
+    const remove = todo.getLocalStorage();
+    const tasks = remove.filter((t) => t.title != task);
+    localStorage.setItem("itemsArray", JSON.stringify(tasks));
     for (let i = 0; i < tasks.length; i++) {
       if (task == tasks[i].title) {
         todo.delete(i);
